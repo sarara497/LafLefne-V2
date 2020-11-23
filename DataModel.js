@@ -12,8 +12,8 @@ db.once('open', function () {
 })
 //Schemas
 let tripsSchema = mongoose.Schema({
-    id: { type: Number, unique: true },
-    image: [[String]],
+    //id: { type: Number, unique: true },
+    image: String,
     tripType: String,
     name: String,
     explore: String,
@@ -21,10 +21,10 @@ let tripsSchema = mongoose.Schema({
     date: Date,
     deadLine: Date,
     tripGuide: String,
-    maximumNumPerTrip: Number,
+    maximumNumPerTrip: String,
     idOfTourist: [String],
-    discription: {
-        type: Object
+    description: {
+        type: String
     },
 })
 let userSchema = mongoose.Schema({
@@ -35,7 +35,8 @@ let userSchema = mongoose.Schema({
     userNum: String,
     trips: [String],
     userimage: String,
-    newsLetter: Boolean
+    newsLetter: Boolean,
+    isAdmin:Boolean
 })
 
 let paymentSchema = mongoose.Schema({
@@ -44,12 +45,20 @@ let paymentSchema = mongoose.Schema({
     cvv: Number,
     exDate: Date
 })
+
+let adminSchema = mongoose.Schema({
+    adminMail:String,
+    adminPass:String
+})
+
 // userSchema.index({ createdBy: 1, name: 1 }, { unique: true });
 let trips = mongoose.model("tripsinfo", tripsSchema);
 let users = mongoose.model("userinfo", userSchema);
 let payment = mongoose.model("paymentinfo", paymentSchema);
+let admin = mongoose.model("adminUser",adminSchema);
 
 
 module.exports.users = users
 module.exports.payment = payment
 module.exports.trips = trips
+module.exports.admin = admin

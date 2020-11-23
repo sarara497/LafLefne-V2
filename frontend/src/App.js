@@ -14,6 +14,7 @@ import Payment from './components/payment/payment'
 import MyTrip from './components/trips/mytrips'
 import Profile from './components/user/Profile';
 import Navbar2 from './components/Homepage/Navbar-login';
+import AddTrip from './components/AddTrips/AddTrip'
 
 
 class App extends React.Component {
@@ -127,6 +128,7 @@ class App extends React.Component {
     }
     if (this.state.tokenin !== `authToken=` && this.state.tokenin !== '') {
       console.log('token')
+   
       nav = <Navbar2></Navbar2>
     }
     else {
@@ -150,12 +152,14 @@ class App extends React.Component {
             {/* <Route path="/" exact component={Home} /> */}
             {/* <Route path="/trips" exact component={Trips} /> */}
             <Route path="/sign-up" exact component={Signup} />
+            <Route exact path={"/AddTrip"}  render={()=> (<AddTrip/>)}/>
             <Route path="/user" exact render={(props) => <Profile userid={this.state.userid} />}
             />
             <Route path="/trip" exact component={Trip} />
             <Route path="/mytrip" exact component={MyTrip} />
 
             <Route path="/payment" exact component={Payment} />
+            
 
           </Switch>
           <Footer />

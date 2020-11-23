@@ -1,7 +1,35 @@
 const trips = require("../DataModel").trips
 const UserModel = require('../DataModel').users
 
-const tripsData = require('../Data/trips.json')
+// const tripsData = require('../Data/trips.json')
+// we need to replace it with entring data from FORM:
+
+exports.addTrip = (req,res)=>{
+    const trip = new trips({
+        name:req.body.name,
+        image:req.body.image,
+        tripType:req.body.tripType,
+        explore:req.body.explore,
+        price:req.body.price,
+        date:req.body.date,
+        deadLine:req.body.deadLine,
+        tripGuide:req.body.tripGuide,
+        maximumNumPerTrip: req.body.maximumNumPerTrip,
+        description:req.body.description,
+        idOfTourist:[]
+    })
+    try{
+      
+        const saveTrip = trip.save();
+        console.log("the Trip added !!!", saveTrip)
+        // res.status(201).send("the Trip added !!!", saveTrip)
+       
+    }catch(err){
+        console.log("iam in error" , err)
+        // res.status(400).send(err);
+    }
+
+}
 
 exports.tripsList = (req, res) => {
     trips.find({}, (err, trips) => {
