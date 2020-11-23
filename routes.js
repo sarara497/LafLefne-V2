@@ -5,6 +5,11 @@ const auth = require('./auth')
 const tripController = require('./Controller/TripsController')
 //User Controller 
 const userController = require('./Controller/UserController')
+
+const AdminController = require('./Controller/AdminController')
+
+
+
 routers.post('/signup', userController.signUpUser);
 routers.post('/login', userController.loginUser);
 routers.post('/logout', userController.userlogout)
@@ -17,10 +22,11 @@ routers.post('/getuserinfo', userController.getuserinfo)
 const paymentController = require('./Controller/PaymentController')
 routers.post('/payment', paymentController.payment)
 //Trips Controller 
-routers.get('/gettrips', tripController.tripsList)
-routers.post('/addtrip', tripController.updateTrip)
-routers.get('/filldata', tripController.fillTrips)
-routers.post('/getmytrips', tripController.getmytrips)
+// routers.get('/gettrips', tripController.tripsList)
+// routers.post('/addtrip', tripController.updateTrip)
+routers.post('/addTrip', tripController.addTrip)
+// routers.get('/filldata', tripController.fillTrips)
+// routers.post('/getmytrips', tripController.getmytrips)
 
 
 //Payment Controller - Check
@@ -30,6 +36,9 @@ routers.get('/check', auth, (req, res) => {
 })
 
 
+//admin Route
+
+// routers.post('/adminLogin' , AdminController.adminLogin)
 
 
 

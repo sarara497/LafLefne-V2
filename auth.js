@@ -1,5 +1,7 @@
 //Authntication and creating token
 const jwt = require('jsonwebtoken')
+
+
 function auth(req, res, next) {
     var t = Object.values(req.cookies)
     const token = t[0]
