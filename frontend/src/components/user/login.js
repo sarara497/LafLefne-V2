@@ -8,8 +8,6 @@ class Login extends React.Component {
     this.state = {
       email: '',
       password: '',
-
-
     }
     this.handelchange = this.handelchange.bind(this)
     this.LoginHandler = this.LoginHandler.bind(this)
