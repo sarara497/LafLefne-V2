@@ -1,7 +1,8 @@
 import React from 'react'
 import './login.css';
 import $ from 'jquery'
-
+import axios from 'axios'
+// import { response } from 'express';
 class Login extends React.Component {
   constructor(props) {
     super(props)
@@ -13,43 +14,55 @@ class Login extends React.Component {
     this.LoginHandler = this.LoginHandler.bind(this)
 
   }
-  LoginHandler() {
+  LoginHandler = async (e) => {
+    e.preventDefault();
     var data = {
       userPass: this.state.password,
       userMail: this.state.email
     }
-    $.ajax({
-      type: "POST",
-      url: "/login",
-      data: data,
-      success: (res) => {
-        console.log(this.props)
-        this.props.toggleuser()
+    axios.post('/login', data)
+      .then((response) => {
+        console.log(response);
+        localStorage.setItem('token' , response.data.token)
+        localStorage.setItem('isAdmin', response.data.isAdmin)
         window.location.href = "/"
-      },
-      error: function (error) {
-        if (error.status === 410) {
-          //alert('Empty data')
-          document.getElementById("logPass").innerHTML = "<div class='alert alert-danger' role='alert'> You have to enter your email</div>"
 
-        }
-        if (error.status === 404) {
-          document.getElementById("logPass").innerHTML = "<div class='alert alert-danger' role='alert'> Invaild Username</div>"
-          //alert('user not existed')
-          console.log(error.responseText)
-        }
-        if (error.status === 400) {
-          //alert('wrong password')
-          document.getElementById("logPass").innerHTML = "<div class='alert alert-danger' role='alert'> Wrong Password</div>"
-
-        }
-
-
-      }
-    })
-
-
+      })
+      .catch((error) => {
+        console.log(error);
+      })
   }
+  // $.ajax({
+  //   type: "POST",
+  //   url: "/login",
+  //   data: data,
+  //   success: (res) => {
+  //     console.log("responnnnnnnnnnnnnnnnse:",res.data);
+  //     console.log(this.props)
+  //     this.props.toggleuser()
+  //     window.location.href = "/"
+  //   },
+  //   error: function (error) {
+  //     if (error.status === 410) {
+  //       //alert('Empty data')
+  //       document.getElementById("logPass").innerHTML = "<div class='alert alert-danger' role='alert'> You have to enter your email</div>"
+
+  //     }
+  //     if (error.status === 404) {
+  //       document.getElementById("logPass").innerHTML = "<div class='alert alert-danger' role='alert'> Invaild Username</div>"
+  //       //alert('user not existed')
+  //       console.log(error.responseText)
+  //     }
+  //     if (error.status === 400) {
+  //       //alert('wrong password')
+  //       document.getElementById("logPass").innerHTML = "<div class='alert alert-danger' role='alert'> Wrong Password</div>"
+
+  //     }
+
+
+  //   }
+  // }) 
+
   handelchange(e) {
     this.setState({
       [e.target.name]: e.target.value

@@ -2,7 +2,8 @@ import React from 'react';
 import './A-Style.css';
 import { Link } from 'react-router-dom';
 import $ from 'jquery'
-
+import axios from 'axios'
+// import { response } from 'express';
 const STYLES = ['btn--primary', 'btn--outline', 'btn--test'];
 
 const SIZES = ['btn--medium', 'btn--large'];
@@ -25,19 +26,26 @@ export const Button = ({
             <button
                 className={`btn ${checkButtonStyle} ${checkButtonSize}`}
                 onClick={() => {
-                    $.ajax({
-                        method: 'POST',
-                        url: '/logout',
-                        success: (res) => {
-                            console.log('see you another time')
-                            window.location.href = "/"
-                        },
-                        error: (err) => {
-                            console.log(err)
+                    // $.ajax({
+                    //     method: 'POST',
+                    //     url: '/logout',
+                    //     success: (res) => {
+                       
+                    //         console.log('see you another time')
+                    //         window.location.href = "/"
+                    //     },
+                    //     error: (err) => {
+                    //         console.log(err)
 
-                        }
-
-
+                    //     }
+                    // })
+                    axios.post('/logout')
+                    .then((response)=>{
+                        localStorage.clear();
+                        window.location.href = "/"
+                    })
+                    .catch((error)=>{
+                        console.log(error);
                     })
                 }}
                 type={type}

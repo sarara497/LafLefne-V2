@@ -79,7 +79,9 @@ exports.loginUser = (req, res) => {
             else {
                 var token = jwt.sign({ _id: user._id }, process.env.TOKEN_SECRET)
                 res.cookie('authToken', token)
-                return res.status(200).send(token)
+                // console.log("is Admin" , user.isAdmin)
+                // res.json({isAdmin:user.isAdmin})
+                return res.status(200).header(token).send({token,isAdmin:user.isAdmin});
             }
         }
     })
