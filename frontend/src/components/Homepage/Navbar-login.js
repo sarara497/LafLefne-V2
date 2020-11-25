@@ -56,7 +56,7 @@ function Navbar() {
                         <li>
                             <Link
                                 to='/'
-                                className='nav-links-mobile'
+                                className='buLogOut'
                                 onClick={closeMobileMenu}>Log Out</Link>
                         </li>
                     

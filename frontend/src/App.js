@@ -4,7 +4,7 @@ import Footer from './components/Homepage/Footer';
 import Home from './components/Homepage/Home'
 import $ from 'jquery'
 
-import { BrowserRouter as Router, Switch, Route } from "react-router-dom";
+import { BrowserRouter as Router, Switch, Route , Redirect} from "react-router-dom";
 import './App.css';
 import Trips from './components/Homepage/Cards'
 import Login from './components/user/login'
@@ -15,6 +15,9 @@ import MyTrip from './components/trips/mytrips'
 import Profile from './components/user/Profile';
 import Navbar2 from './components/Homepage/Navbar-login';
 import AddTrip from './components/AddTrips/AddTrip'
+import LogIn from './components/user/login'
+import AdminTripPage from './components/trips/AdminTripPage'
+
 
 
 class App extends React.Component {
@@ -26,7 +29,8 @@ class App extends React.Component {
       isuser: false,
       tokenin: "",
       testtrips: [],
-      userid: ''
+      userid: '',
+      isAdmin: localStorage.getItem('isAdmin')
     }
     this.changeLogInStatus = this.changeLogInStatus.bind(this)
     this.getup = this.getup.bind(this)
@@ -109,7 +113,7 @@ class App extends React.Component {
 
   render() {
 
-    const { islogin } = this.state
+    const { islogin , isAdmin } = this.state
     let comp
     let nav
     if (islogin) {
@@ -151,13 +155,19 @@ class App extends React.Component {
             />
             {/* <Route path="/" exact component={Home} /> */}
             {/* <Route path="/trips" exact component={Trips} /> */}
-            <Route path="/sign-up" exact component={Signup} />
+            <Route  exact path={"/sign-up"} render={()=> (<Signup/>)}/>
+            
             <Route exact path={"/AddTrip"}  render={()=> (<AddTrip/>)}/>
+            
             <Route path="/user" exact render={(props) => <Profile userid={this.state.userid} />}
             />
+            <Route exact path={"/LogIn"}  render={()=> (<LogIn/>)}/>
             <Route path="/trip" exact component={Trip} />
             <Route path="/mytrip" exact component={MyTrip} />
-
+            <Route exact path={"/AdminPage"} render={() =>
+                isAdmin ?
+                  <AddTrip isAdmin={isAdmin} /> : <Redirect to="/mytrip" />} />
+            {/* <Route path="/AdminPage" exact component={AdminTripPage} /> */}
             <Route path="/payment" exact component={Payment} />
             
 

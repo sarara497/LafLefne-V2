@@ -2,6 +2,7 @@ import React from 'react'
 import './login.css';
 import $ from 'jquery'
 import axios from 'axios'
+import AddTrip from '../AddTrips/AddTrip'
 // import { response } from 'express';
 class Login extends React.Component {
   constructor(props) {
@@ -25,8 +26,12 @@ class Login extends React.Component {
         console.log(response);
         localStorage.setItem('token' , response.data.token)
         localStorage.setItem('isAdmin', response.data.isAdmin)
+        if(response.data.isAdmin){
+          window.location.href ='../AddTrips/AddTrip'
+        }
+        else{
         window.location.href = "/"
-
+        }
       })
       .catch((error) => {
         console.log(error);
