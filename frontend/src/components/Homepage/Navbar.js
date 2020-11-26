@@ -5,6 +5,7 @@ import { Button } from './Button';
 
 
 
+
 function Navbar() {
     const [click, setClick] = useState(false);
     const [button, setButton] = useState(true);
@@ -47,13 +48,13 @@ function Navbar() {
                                 className='nav-links'
                                 onClick={closeMobileMenu}>Trips</Link>
                         </li>
-                        
+{/*                         
                         <li className='nav-item'>
                             <Link
                                 to='/AddTrip'
                                 className='nav-links'
                                 onClick={closeMobileMenu}>AddTrip</Link>
-                        </li>
+                        </li> */}
                         <li className='nav-item'>
                             <Link
                                 to='/LogIn'

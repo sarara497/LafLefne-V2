@@ -5,6 +5,7 @@ import Section from './Section';
 import AboutUs from './AboutUs';
 import Cards from './HomeCards';
 
+
 class Home extends React.Component {
     constructor(props) {
         super(props)

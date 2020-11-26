@@ -16,7 +16,8 @@ import Profile from './components/user/Profile';
 import Navbar2 from './components/Homepage/Navbar-login';
 import AddTrip from './components/AddTrips/AddTrip'
 import LogIn from './components/user/login'
-import AdminTripPage from './components/trips/AdminTripPage'
+import AdminLogin from './components/Homepage/Navbar-login-Admin'
+import AdminNave from './components/Homepage/NavbarAdlogin'
 
 
 
@@ -114,6 +115,7 @@ class App extends React.Component {
   render() {
 
     const { islogin , isAdmin } = this.state
+    console.log("is admin" , isAdmin)
     let comp
     let nav
     if (islogin) {
@@ -130,10 +132,15 @@ class App extends React.Component {
         render={(props) => <Login toggleuser={this.changeUserStatus} toggleLogin={this.changeLogInStatus} hello='hello' />}
       />
     }
-    if (this.state.tokenin !== `authToken=` && this.state.tokenin !== '') {
+    if (this.state.tokenin !== `authToken=` && this.state.tokenin !== '' && isAdmin===false) {
       console.log('token')
    
       nav = <Navbar2></Navbar2>
+    }
+    else if (this.state.tokenin !== `authToken=` && this.state.tokenin !== '' && isAdmin===true) {
+      console.log('token')
+   
+      nav =<AdminNave></AdminNave>
     }
     else {
       console.log('noo token')
@@ -164,9 +171,8 @@ class App extends React.Component {
             <Route exact path={"/LogIn"}  render={()=> (<LogIn/>)}/>
             <Route path="/trip" exact component={Trip} />
             <Route path="/mytrip" exact component={MyTrip} />
-            <Route exact path={"/AdminPage"} render={() =>
-                isAdmin ?
-                  <AddTrip isAdmin={isAdmin} /> : <Redirect to="/mytrip" />} />
+            <Route exact path={"/AdminLogin"}  render={()=> (<AdminLogin/>)}/>
+            
             {/* <Route path="/AdminPage" exact component={AdminTripPage} /> */}
             <Route path="/payment" exact component={Payment} />
             
